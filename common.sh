@@ -10,6 +10,10 @@ sudo firewall-cmd --permanent --add-port=10252/tcp
 sudo firewall-cmd --permanent --add-port=10255/tcp
 sudo firewall-cmd --reload
 
+#if u get issues in installation because of firewall disable it and try it.
+
+systemctl stop firewalld
+
 
 sudo modprobe br_netfilter
 
