@@ -11,7 +11,6 @@ sudo firewall-cmd --permanent --add-port=10255/tcp
 sudo firewall-cmd --reload
 
 
-
 sudo modprobe br_netfilter
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -76,12 +75,12 @@ sudo systemctl restart docker
 
 
 
-#mkdir -p $HOME/.kube
-#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 #Alternatively, if you are the root user, you can run:
 
- export KUBECONFIG=/etc/kubernetes/admin.conf
+#export KUBECONFIG=/etc/kubernetes/admin.conf
 
 sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
