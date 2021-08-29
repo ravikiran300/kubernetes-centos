@@ -40,7 +40,7 @@ sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
     
- sudo yum install docker-ce docker-ce-cli containerd.io
+ sudo yum install -y docker-ce docker-ce-cli containerd.io
  
  sudo systemctl start docker
  
@@ -59,3 +59,13 @@ EOF
 sudo systemctl enable docker
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+
+
+
+#mkdir -p $HOME/.kube
+#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+#Alternatively, if you are the root user, you can run:
+
+ export KUBECONFIG=/etc/kubernetes/admin.conf
