@@ -1,3 +1,7 @@
+sudo swapoff -a
+# keeps the swaf off during reboot
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
 sudo firewall-cmd --permanent --add-port=6443/tcp
 sudo firewall-cmd --permanent --add-port=2379-2380/tcp
 sudo firewall-cmd --permanent --add-port=10250/tcp
