@@ -59,6 +59,20 @@ sudo yum-config-manager \
     
  sudo yum install -y docker-ce docker-ce-cli containerd.io
  
+ #Letting iptables see bridged traffic
+sudo modprobe br_netfilter
+
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+sudo sysctl --system
+ 
  sudo systemctl start docker
  
  sudo mkdir /etc/docker
@@ -107,16 +121,4 @@ sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Do
 
 
 
-#Letting iptables see bridged traffic
-sudo modprobe br_netfilter
 
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-
-sudo sysctl --system
